@@ -1,6 +1,7 @@
 # app.py
 import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from bson.objectid import ObjectId
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -12,6 +13,11 @@ from database import init_db
 load_dotenv()
 
 app = Flask(__name__)
+
+# Enable CORS for your React dev server; in production, lock this down or remove origins
+CORS(app, origins=["http://localhost:5173"])
+
+# Initialize database
 mongo = init_db(app)
 
 # Grab the DB name from config and get the Database object
